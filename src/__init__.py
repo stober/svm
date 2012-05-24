@@ -9,7 +9,7 @@ import numpy as np
 import numpy.random as npr
 import pylab
 from cvxopt import solvers, matrix
-#from utils import plot_line
+#from axline import plot_line # gist: https://gist.github.com/2778598
 
 def svm(pts, labels):
     """
@@ -75,7 +75,7 @@ if __name__ == '__main__':
         ylim = pylab.gca().get_ylim()
         print xlim,ylim
 
-        plot_line(x, xlim, ylim)
+        #plot_line(x, xlim, ylim)
         pylab.show()
 
 
