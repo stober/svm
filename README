@@ -5,7 +5,8 @@ Contact: stober@gmail.com
 Version: 0.1
 
 This is a simple support vector machine implementation based on the
-primal form of SVMs for linearly separable problems. I used Bishop's
-PRML text as a basis for this implementation. This is meant as a guide
-for the basic ideas behind support vector machiens. The CVXOPT library
-is used for solving the quadratic program at the heart of the SVM.
+primal form of SVMs for linearly separable problems, and problems that
+also require slack variables. I used Bishop's PRML text as a basis for
+this implementation. This is meant as a guide for the basic ideas
+behind support vector machiens. The CVXOPT library is used for solving
+the quadratic program at the heart of the SVM.
