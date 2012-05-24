@@ -35,15 +35,19 @@ def svm_slack(pts, labels, c = 1.0):
     q[-1] = 1.0
 
     # set up h
-    h = matrix(-1.0,(m,1))
+    h = matrix(-1.0,(m+m,1))
+    h[m:] = 0.0
 
     # set up G
     print m
-    G = matrix(0.0, (m,nvars))
+    G = matrix(0.0, (m+m,nvars))
     for i in range(m):
         G[i,:n] = -labels[i] * pts[i]
         G[i,n+i] = -1
         G[i,-1] = -labels[i]
+
+    for i in range(m,m+m):
+        G[i,n+i-m] = -1.0
 
     x = solvers.qp(P,q,G,h)['x']
 
@@ -93,13 +97,6 @@ if __name__ == '__main__':
         class1 = n1.simulate(n/2)
         class2 = n2.simulate(n/2)
 
-        # theta = np.pi / 8.0
-        # r = np.cos(theta)
-        # s = np.sin(theta)
-        # rotation = np.array([[r,s],[s,-r]])
-
-        # samples = np.dot(np.vstack([class1,class2]), rotation)
-
         samples = np.vstack([class1,class2])
 
         labels = np.zeros(n)
@@ -132,9 +129,17 @@ if __name__ == '__main__':
 
         #import pdb
         #pdb.set_trace()
-        P,q,h,G,x = svm_slack(samples, labels) # Error on overlapping classes.
+        P,q,h,G,x = svm_slack(samples, labels, c = 2.0)
+        #print P, q, h, G
+        line_params = list(x[:2]) + [x[-1]]
 
-        print P, q, h, G
+        xlim = pylab.gca().get_xlim()
+        ylim = pylab.gca().get_ylim()
+        print xlim,ylim
+
+        plot_line(line_params, xlim, ylim)
+        print line_params
+
         pylab.show()
 
 
